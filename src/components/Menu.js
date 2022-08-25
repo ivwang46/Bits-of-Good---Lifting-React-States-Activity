@@ -42,6 +42,18 @@ const menuItems = [
 ]
 
 function Menu() {
+  const [purchasedItems, setPurchasedItems] = React.useState([]);
+
+  const updatePurchasedItems = purchasedItem => {
+    console.log("helper func")
+    setPurchasedItems([...purchasedItems, purchasedItem]);
+    console.log(purchasedItems);
+  }
+
+  const removePurchasedItem = name => {
+    setPurchasedItems(purchasedItems.filter(item => name !== item.name))
+  }
+
   return (
     <section>
       <dl>
@@ -51,11 +63,13 @@ function Menu() {
               name={menuItem.name}
               price={menuItem.price}
               picture={menuItem.picture}
+              updatePurchasedItems={updatePurchasedItems}
+              removePurchasedItem={removePurchasedItem}
             />
           )
         })}
       </dl>
-      <Receipt purchasedItems={[]} />
+      <Receipt purchasedItems={purchasedItems} />
     </section>
   )
 }
